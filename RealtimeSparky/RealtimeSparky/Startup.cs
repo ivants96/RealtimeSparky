@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using RealtimeSparky.Hubs;
 
 namespace RealtimeSparky
 {
@@ -19,6 +20,7 @@ namespace RealtimeSparky
         {
             services.AddCors();
             services.AddMvc();
+            services.AddSignalR();
         }
         public IConfigurationRoot Configuration { get; }
 
@@ -30,15 +32,16 @@ namespace RealtimeSparky
                 app.UseDeveloperExceptionPage();
             }
 
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             app.UseStaticFiles();
             app.UseMvc();
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            app.UseCors();
+            app.UseSignalR(routes =>
+                {
+                    routes.MapHub<SparkyHub>("/sparky");                  
+                });
+           
+          
         }
     }
 }
