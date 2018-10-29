@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RealtimeSparky.Model
 {
-    public class Item
+    public partial class Sparkyvalues
     {
+        public int Id { get; set; }
         public string Value { get; set; }
     }
 }

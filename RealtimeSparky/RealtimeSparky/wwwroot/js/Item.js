@@ -3,6 +3,4 @@
             this.value = v;
         }
 }
-
-
 export {Item}
