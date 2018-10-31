@@ -28,7 +28,6 @@ namespace RealtimeSparky
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -43,7 +42,7 @@ namespace RealtimeSparky
             services.AddSignalR();
         }
 
-        public IConfigurationRoot Configuration { get; }       
+        public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -61,12 +60,6 @@ namespace RealtimeSparky
                 {
                     routes.MapHub<SparkyHub>("/sparky");
                 });
-            app.Run(context =>
-                context.Response.WriteAsync(Configuration.GetConnectionString("SparkyDb"))
-            );
-
-
-
         }
     }
 }
